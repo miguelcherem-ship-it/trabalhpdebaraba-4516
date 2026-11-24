@@ -1,0 +1,3 @@
+import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core';
+export const bookings = sqliteTable('bookings', { id: text('id').primaryKey(), name: text('name').notNull(), phone: text('phone').notNull(), service: text('service').notNull(), barber: text('barber').notNull(), date: text('date').notNull(), time: text('time').notNull() });
+export const occupied = sqliteTable('occupied', { id: integer('id').primaryKey({autoIncrement:true}), booking: text('booking').notNull(), barber: text('barber').notNull(), date: text('date').notNull(), minute: integer('minute').notNull() }, t=>[uniqueIndex('reserved_slot').on(t.barber,t.date,t.minute)]);
